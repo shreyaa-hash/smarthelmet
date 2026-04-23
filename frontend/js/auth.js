@@ -35,8 +35,9 @@ async function login() {
             data = await response.json();
         } catch (parseErr) {
             const rawText = await response.text();
-            alert("SERVER CRASHED WITH THIS ERROR:\n\n" + rawText);
-            showError('login', 'Server crashed. Check alert popup.');
+            alert("SERVER CRASHED (LOGIN):\n\n" + rawText);
+            msg.textContent = "Server crashed. Check popup.";
+            msg.className = "msg error";
             return;
         }
 
@@ -44,11 +45,13 @@ async function login() {
             localStorage.setItem('user', JSON.stringify(data.user));
             window.location.href = 'dashboard.html';
         } else {
-            showError('login', data.message || 'Login failed');
+            msg.textContent = data.message || 'Login failed';
+            msg.className = "msg error";
         }
     } catch (e) {
-        alert("FETCH FAILED. Error: " + e.message);
-        showError('login', 'Network connection failed completely.');
+        alert("FETCH FAILED (LOGIN): " + e.message);
+        msg.textContent = "Network connection failed";
+        msg.className = "msg error";
     }
 }
 
@@ -69,18 +72,29 @@ async function register() {
             method: 'POST',
             body: JSON.stringify({ username: user, password: pass, role: role })
         });
-        const data = await response.json();
+        
+        let data;
+        try {
+            data = await response.json();
+        } catch (parseErr) {
+            const rawText = await response.text();
+            alert("SERVER CRASHED (REGISTER):\n\n" + rawText);
+            msg.textContent = "Server crashed. Check popup.";
+            msg.className = "msg error";
+            return;
+        }
 
         if(response.ok) {
             msg.textContent = "Registration successful! Please login.";
             msg.className = "msg success";
             setTimeout(() => switchTab('login'), 2000);
         } else {
-            msg.textContent = data.message;
+            msg.textContent = data.message || 'Registration failed';
             msg.className = "msg error";
         }
     } catch (e) {
-        msg.textContent = "Connection error";
+        alert("FETCH FAILED (REGISTER): " + e.message);
+        msg.textContent = "Network connection failed";
         msg.className = "msg error";
     }
 }
