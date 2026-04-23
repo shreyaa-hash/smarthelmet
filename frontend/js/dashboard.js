@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8000/backend/api';
+const API_BASE = '../backend/api';
 
 // Thresholds
 const THRESHOLDS = {
