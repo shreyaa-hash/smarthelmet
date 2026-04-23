@@ -29,18 +29,26 @@ async function login() {
             method: 'POST',
             body: JSON.stringify({ username: user, password: pass })
         });
-        const data = await response.json();
+        
+        let data;
+        try {
+            data = await response.json();
+        } catch (parseErr) {
+            const rawText = await response.text();
+            alert("SERVER CRASHED WITH THIS ERROR:\n\n" + rawText);
+            showError('login', 'Server crashed. Check alert popup.');
+            return;
+        }
 
-        if(response.ok) {
+        if (response.ok) {
             localStorage.setItem('user', JSON.stringify(data.user));
             window.location.href = 'dashboard.html';
         } else {
-            msg.textContent = data.message;
-            msg.className = "msg error";
+            showError('login', data.message || 'Login failed');
         }
     } catch (e) {
-        msg.textContent = "Connection error";
-        msg.className = "msg error";
+        alert("FETCH FAILED. Error: " + e.message);
+        showError('login', 'Network connection failed completely.');
     }
 }
 
