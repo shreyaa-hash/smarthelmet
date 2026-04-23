@@ -6,12 +6,12 @@ header("Content-Type: application/json; charset=UTF-8");
 
 require_once '../config/database.php';
 
-$db = getDB();
-$collection = $db->users;
-
 $data = json_decode(file_get_contents("php://input"));
 
 try {
+    $db = getDB();
+    $collection = $db->users;
+    
     if(!empty($data->username) && !empty($data->password) && !empty($data->role)) {
         $user = $collection->findOne(['username' => $data->username]);
         if($user) {
