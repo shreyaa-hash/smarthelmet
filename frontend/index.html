@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeX System - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <h2>SafeX System</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('login')">Login</button>
+            <button class="tab" onclick="switchTab('register')">Register</button>
+        </div>
+
+        <div id="login-form" class="form-container active">
+            <input type="text" id="login-username" placeholder="Username" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <button onclick="login()">Login to Dashboard</button>
+            <p id="login-msg" class="msg"></p>
+        </div>
+
+        <div id="register-form" class="form-container">
+            <input type="text" id="reg-username" placeholder="Username" required>
+            <input type="password" id="reg-password" placeholder="Password" required>
+            <select id="reg-role">
+                <option value="miner">Miner</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button onclick="register()">Create Account</button>
+            <p id="reg-msg" class="msg"></p>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

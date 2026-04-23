@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeX Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i data-feather="hexagon" class="icon-svg"></i>
+            <h1>SafeX Dashboard</h1>
+        </div>
+        <div class="nav-controls">
+            <span id="user-display">Admin</span>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <!-- AI Alert Banner -->
+        <div id="ai-alert" class="alert-banner hidden">
+            <i data-feather="alert-triangle"></i>
+            <span id="ai-message">System Normal</span>
+        </div>
+
+        <div class="grid-layout">
+            <!-- Real-time Cards -->
+            <div class="cards-grid">
+                <div class="sensor-card" id="card-gas">
+                    <div class="card-header">
+                        <h3>Toxic Gas Level</h3>
+                        <i data-feather="wind" class="icon-svg"></i>
+                    </div>
+                    <div class="value-display">
+                        <span id="val-gas">--</span>
+                        <span class="unit">ppm</span>
+                    </div>
+                </div>
+
+                <div class="sensor-card" id="card-temp">
+                    <div class="card-header">
+                        <h3>Temperature</h3>
+                        <i data-feather="thermometer" class="icon-svg"></i>
+                    </div>
+                    <div class="value-display">
+                        <span id="val-temp">--</span>
+                        <span class="unit">°C</span>
+                    </div>
+                </div>
+
+                <div class="sensor-card" id="card-hum">
+                    <div class="card-header">
+                        <h3>Humidity</h3>
+                        <i data-feather="droplet" class="icon-svg"></i>
+                    </div>
+                    <div class="value-display">
+                        <span id="val-hum">--</span>
+                        <span class="unit">%</span>
+                    </div>
+                </div>
+
+                <div class="sensor-card" id="card-dist">
+                    <div class="card-header">
+                        <h3>Proximity</h3>
+                        <i data-feather="maximize" class="icon-svg"></i>
+                    </div>
+                    <div class="value-display">
+                        <span id="val-dist">--</span>
+                        <span class="unit">cm</span>
+                    </div>
+                </div>
+
+                <div class="sensor-card" id="card-moist">
+                    <div class="card-header">
+                        <h3>Moisture</h3>
+                        <i data-feather="cloud-rain" class="icon-svg"></i>
+                    </div>
+                    <div class="value-display">
+                        <span id="val-moist">--</span>
+                        <span class="unit">%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="chart-container">
+                    <h3>Real-time Analytics</h3>
+                    <canvas id="mainChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="history-section">
+            <div class="section-header">
+                <h3>Recent System Logs</h3>
+                <button onclick="fetchHistory()" class="btn-refresh">
+                    <i data-feather="refresh-cw" style="width: 16px; height: 16px;"></i>
+                    Sync Data
+                </button>
+            </div>
+            <div class="table-container">
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Gas (ppm)</th>
+                            <th>Temp (°C)</th>
+                            <th>Humidity (%)</th>
+                            <th>Distance (cm)</th>
+                            <th>Moisture (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Hidden audio element for alerts -->
+    <audio id="alertSound" src="data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq" preload="auto"></audio>
+
+    <script src="js/dashboard.js"></script>
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+    </script>
+</body>
+</html>
