@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install the MongoDB extension using PECL and enable it
-RUN pecl install mongodb && docker-php-ext-enable mongodb
+# Install a specific, stable version of the MongoDB extension to prevent signature crashes
+RUN pecl install mongodb-1.17.2 && docker-php-ext-enable mongodb
 
 # Install Composer globally
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
