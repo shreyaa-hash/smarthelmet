@@ -32,11 +32,15 @@ async function login() {
             body: JSON.stringify({ username: user, password: pass })
         });
         
+        let rawText;
+        try {
+            rawText = await response.text();
+        } catch(e) {}
+        
         let data;
         try {
-            data = await response.json();
+            data = JSON.parse(rawText);
         } catch (parseErr) {
-            const rawText = await response.text();
             alert("SERVER CRASHED (LOGIN):\n\n" + rawText);
             msg.textContent = "Server crashed. Check popup.";
             msg.className = "msg error";
@@ -75,11 +79,15 @@ async function register() {
             body: JSON.stringify({ username: user, password: pass, role: role })
         });
         
+        let rawText;
+        try {
+            rawText = await response.text();
+        } catch(e) {}
+        
         let data;
         try {
-            data = await response.json();
+            data = JSON.parse(rawText);
         } catch (parseErr) {
-            const rawText = await response.text();
             alert("SERVER CRASHED (REGISTER):\n\n" + rawText);
             msg.textContent = "Server crashed. Check popup.";
             msg.className = "msg error";
