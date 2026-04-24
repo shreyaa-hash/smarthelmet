@@ -29,6 +29,9 @@ async function login() {
     try {
         const response = await fetch(`${API_BASE}/login.php`, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ username: user, password: pass })
         });
         
@@ -76,6 +79,9 @@ async function register() {
     try {
         const response = await fetch(`${API_BASE}/register.php`, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ username: user, password: pass, role: role })
         });
         
