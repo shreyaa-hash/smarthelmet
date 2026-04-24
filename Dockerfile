@@ -24,10 +24,6 @@ WORKDIR /var/www/html
 # Copy the entire project into the Apache server directory
 COPY . /var/www/html/
 
-# Run composer install to download the correct MongoDB dependencies natively
-ENV COMPOSER_MEMORY_LIMIT=-1
-RUN cd backend && composer install --no-dev --optimize-autoloader --ignore-platform-reqs
-
 # Give Apache permissions
 RUN chown -R www-data:www-data /var/www/html
 
